@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <p id="demo">Clique no botão para obter sua localização:</p>
+    <button onclick="getLocation()">Clique aqui</button>
+    <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="" style="border: 1px solid black" id="ifrMapa"></iframe>
+    <script>
+        var x = document.getElementById("demo");
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            }
+            else { x.innerHTML = "Geolocalização não é suportada nesse browser."; }
+        }
+
+        function showPosition(position) {
+            lat = position.coords.latitude;
+            lon = position.coords.longitude;
+            
+            //let src = `https://www.openstreetmap.org/export/embed.html?bbox=${lon}%2C${lat}%2C${lon}%2C${lat}&amp;layer=cyclosm&amp;marker=${lat}%2C${lon}`;
+            let src = `https://www.openstreetmap.org/export/embed.html?bbox=${lon}%2C${lat}%2C${lon}%2C${lat}&amp;layer=cyclemap&amp;marker=${lat}%2C${lon}`;
+
+            document.getElementById("ifrMapa").src = src;
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    x.innerHTML = "Usuário rejeitou a solicitação de Geolocalização."
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    x.innerHTML = "Localização indisponível."
+                    break;
+                case error.TIMEOUT:
+                    x.innerHTML = "O tempo da requisição expirou."
+                    break;
+                case error.UNKNOWN_ERROR:
+                    x.innerHTML = "Algum erro desconhecido aconteceu."
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>

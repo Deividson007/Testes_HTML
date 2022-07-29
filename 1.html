@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            background: #151418;
+        }
+        .loading-wrapper {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .bar {
+            display: block;
+            height: 36px;
+            width: 10px;
+            background: #ffffff;
+            margin-right: 24px;
+            /*animation: scale 1600ms infinite;*/
+            animation-delay: 100ms;
+            transform-origin: 50% 50%;
+            box-shadow: 2px 2px 2px #3ff9dc;
+        }
+        .one {
+            animation: scale 1600ms ease-in-out;
+        }
+        .two {
+            animation: scale 1600ms ease-in-out;
+        }
+        .three {
+            animation: scale 1600ms ease-in-out;
+        }
+    
+        @keyframes scale {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-wrapper">
+        <div class="bar one"></div>
+        <div class="bar two"></div>
+        <div class="bar three"></div>
+    </div>
+</body>
+</html>
