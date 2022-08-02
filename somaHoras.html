@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="call()">
+    <h1 id="h1"></h1>
+</body>
+
+    <script>
+        function somartempos(horas) {
+            var temp = Array();
+            var tempofinal = 0;
+
+            for(h of horas) {
+                var array1 = h.split(':');
+                temp.push((parseInt(array1[0]) * 3600) + (parseInt(array1[1]) * 60) + parseInt(array1[2]));
+            }
+
+            for(t of temp) {
+                console.log(t);
+                tempofinal += parseInt(t);
+                console.log(tempofinal);
+            }
+            
+            var hours = Math.floor(tempofinal / (60 * 60));
+            var divisorMinutos = tempofinal % (60 * 60);
+            var minutes = Math.floor(divisorMinutos / 60);
+            var divisorSeconds = divisorMinutos % 60;
+            var seconds = Math.ceil(divisorSeconds);
+            var contador = "";
+            if (hours < 10) { contador = `0${hours}:`; } else { contador = `${hours}:`; }
+            if (minutes < 10) { contador += `0${minutes}:`; } else { contador += `${minutes}:`; }
+            if (seconds < 10) { contador += `0${seconds}`; } else { contador += seconds; }
+                return contador;
+        };
+        function call() {
+            var h1 = document.getElementById("h1");
+            h1.innerText = somartempos(["00:01:47", "00:01:09", "00:02:59"]);
+        }
+    </script>
+</html>
