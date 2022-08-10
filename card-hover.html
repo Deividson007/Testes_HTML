@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Hover</title>
+    <link rel="stylesheet" href="/assets/@fortawesome/fontawesome-free/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="/assets/@fortawesome/fontawesome-free/css/solid.css" />
+    <style>
+        .card {
+            width: 300px;
+            height: 400px;
+            background: #000;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all .25s ease;
+            backface-visibility: hidden;
+        }
+        .card:hover {
+            transform: scale(.9);
+        }
+        .card:hover:after {
+            height: 280px;
+        }
+        .card:hover .con-text p {
+            margin-bottom: 0px;
+            opacity: 1;
+        }
+        .card:hover img {
+            transform: scale(1.25);
+        }
+        .card:hover .ul {
+            transform: translate(0);
+            opacity: 1;
+        }
+        .card:after {
+            width: 100%;
+            content: "";
+            left: 0px;
+            bottom: 0px;
+            height: 150px;
+            position: absolute;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+            z-index: 20;
+            transition: all .25s ease;
+        }
+        .card img {
+            height: 100%;
+            z-index: 10;
+            transition: all .25s ease;
+        }
+        .card .con-text {
+            z-index: 30;
+            position: absolute;
+            bottom: 20px;
+            color: #fff;
+            padding: 20px;
+            padding-bottom: 30px;
+        }
+        .card .con-text p {
+            font-size: .8rem;
+            opacity: 0;
+            margin-bottom: -170px;
+            transition: all .25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-direction: column;
+        }
+        .card .con-text p button {
+            padding: 7px 17px;
+            border-radius: 12px;
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            margin-top: 10px;
+            margin-left: auto;
+            cursor: pointer;
+            transition: all .25s ease;
+            font-family: poppins;
+            font-size: .75rem;
+            outline: none;
+        }
+        .card .con-text p button:hover {
+            background: #fff;
+            color: #000;
+        }
+        .ul {
+            position: absolute;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 40;
+            border-radius: 14px;
+            padding-left: 0px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            top: 0px;
+            opacity: 0;
+            transform: translate(100%);
+            transition: all .25s ease;
+        }
+        .ul li {
+            background: #fff;
+            list-style: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: .7;
+            transition: all .25s ease;
+            backface-visibility: hidden;
+        }
+        .ul li:last-child {
+            border-radius: 0px 0px 12px 12px;
+        }
+        .ul li:first-child {
+            border-radius: 12px 12px 0px 0px;
+        }
+        .ul li:hover {
+            opacity: 1;
+            transform: translate(-7px, -4px);
+            border-radius: 6px;
+        }
+        .ul li i {
+            font-size: 1.4rem;
+            color: #000;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="card">
+        <ul class="ul">
+            <li>
+                <i class="fa-solid fa-martini-glass-citrus"></i>
+            </li>
+            <li>
+                <i class="fa-solid fa-film"></i>
+            </li>
+            <li>
+                <i class="fa-solid fa-store"></i>
+            </li>
+            <li>
+                <i class="fa-solid fa-location-dot"></i>
+            </li>
+        </ul>
+        <img src="/imgs/torre.jpg" alt="">
+        <div class="con-text">
+            <h2>Lorem ipsum</h2>
+            <p>
+                Lorem ipsum dolor sit amet. Ea pariatur dolorem aut vitae consequatur ad odit eligendi. 
+                Eum minima iure ut quisquam veritatis ut molestiae porro aut placeat ipsa in rerum numquam non veniam facere est accusantium suscipit. 
+                <button>See more</button>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
