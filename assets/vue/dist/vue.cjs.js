@@ -28,6 +28,7 @@ function compileToFunction(template, options) {
             template = template.innerHTML;
         }
         else {
+            runtimeDom.warn(`invalid template option: `, template);
             return shared.NOOP;
         }
     }
@@ -38,17 +39,32 @@ function compileToFunction(template, options) {
     }
     if (template[0] === '#') {
         const el = document.querySelector(template);
+        if (!el) {
+            runtimeDom.warn(`Template element not found or is empty: ${template}`);
+        }
         // __UNSAFE__
         // Reason: potential execution of JS expressions in in-DOM template.
         // The user must make sure the in-DOM template is trusted. If it's rendered
         // by the server, the template should not contain any user data.
         template = el ? el.innerHTML : ``;
     }
-    const { code } = compilerDom.compile(template, shared.extend({
+    const opts = shared.extend({
         hoistStatic: true,
-        onError: undefined,
-        onWarn: shared.NOOP
-    }, options));
+        onError: onError ,
+        onWarn: e => onError(e, true) 
+    }, options);
+    if (!opts.isCustomElement && typeof customElements !== 'undefined') {
+        opts.isCustomElement = tag => !!customElements.get(tag);
+    }
+    const { code } = compilerDom.compile(template, opts);
+    function onError(err, asWarning = false) {
+        const message = asWarning
+            ? err.message
+            : `Template compilation error: ${err.message}`;
+        const codeFrame = err.loc &&
+            shared.generateCodeFrame(template, err.loc.start.offset, err.loc.end.offset);
+        runtimeDom.warn(codeFrame ? `${message}\n${codeFrame}` : message);
+    }
     // The wildcard import results in a huge object with every export
     // with keys that cannot be mangled, and can be quite heavy size-wise.
     // In the global build we know `Vue` is available globally so we can avoid
