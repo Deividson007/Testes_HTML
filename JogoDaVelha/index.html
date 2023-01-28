@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <table id="game" class="table table-bordered">
+            <tr>
+              <td id="0"></td>
+              <td id="1"></td>
+              <td id="2"></td>
+            </tr>
+            <tr>
+              <td id="3"></td>
+              <td id="4"></td>
+              <td id="5"></td>
+            </tr>
+            <tr>
+              <td id="6"></td>
+              <td id="7"></td>
+              <td id="8"></td>
+            </tr>
+          </table>
+          <div id="result"></div>
+    </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+
+<script>
+    var table = document.getElementById("game");
+var result = document.getElementById("result");
+var cells = table.getElementsByTagName("td");
+var currentPlayer = "X";
+var moves = 0;
+
+table.addEventListener("click", function(event) {
+  var cell = event.target;
+  if (cell.tagName === "TD" && cell.textContent === "") {
+    cell.textContent = currentPlayer;
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    moves++;
+    checkWin();
+  }
+});
+
+function checkWin() {
+  // Array com as combinações de vitória
+  var winCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+
+  // Verifica cada combinação
+  for (var i = 0; i < winCombinations.length; i++) {
+    var combination = winCombinations[i];
+    var won = true;
+
+    for (var j = 0; j < combination.length; j++) {
+      var cell = cells[combination[j]];
+      if (cell.textContent !== currentPlayer) {
+        won = false;
+        break;
+      }
+    }
+
+    // Se alguém ganhou, mostra a mensagem de vitória e reseta o jogo
+    if (won) {
+      result.textContent = currentPlayer + " ganhou!";
+      reset();
+      return;
+    }
+  }
+  if (moves === 9) {
+    result.textContent = "Empate!";
+    reset();
+  }
+}
+
+function reset() {
+  for (var i = 0; i < cells.length; i++) {
+    cells[i].textContent = "";
+  }
+  currentPlayer = "X";
+  moves = 0;
+}
+
+</script>
+
+<style>
+    table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+td {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  font-size: 30px;
+  border: 1px solid #000;
+}
+
+#result {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 20px;
+}
+</style>
+
+</html>
