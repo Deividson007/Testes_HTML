@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela Multi Nível</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+
+    <style>
+        .hiddenRow {
+            padding: 0 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="panel panel-bordered">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th style="width:20%">Colaborador</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody class="accordion" id="accordionExample">
+                                <tr class="accordion-toggle" data-toggle="collapse" data-target="#id_1" onclick="consolidadoTable.getDetails(1, this)">
+                                    <td>Nome</td>
+                                    <td>28/01/1900</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="15" class="hiddenRow">
+                                        <div id="id_1" class="accordian-body collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                            <div class="panel panel-bordered">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <table class="table table-bordered table-sm">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="width:20%">Colaborador</th>
+                                                                        <th>Projeto</th>
+                                                                        <th>Data</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="accordion" id="accordionExample">
+                                                                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#id_sub_1">
+                                                                            <td>Nome</td>
+                                                                            <td>000</td>
+                                                                            <td>28/01/1900</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="15" class="hiddenRow">
+                                                                                <div id="id_sub_1" class="accordian-body collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                                                                    teste
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var consolidadoTable = {
+            getDetails: (idUsuario, el) => {
+                var url = `${window.applicationBaseUrl}Engenharia/Consolidado/TableDetails`;
+    
+                if ($(el.dataset.target)[0].innerHTML !== "") return;
+    
+                $.ajax({
+                    url: url,
+                    type: "post",
+                    data: { idUsuario: idUsuario, idDisciplina: document.getElementById("IdDisciplina").value },
+                    beforeSend: () => {
+                        PopUp.load();
+                    },
+                    success: (resp) => {
+                        $(el.dataset.target).empty();
+                        $(el.dataset.target).append(resp);
+                        PopUp.close();
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
