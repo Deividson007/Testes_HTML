@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+        .table-center tbody tr td {
+            width: 50%;
+        }
+    </style>
+    <script>
+        function calculos(peso, altura) {
+            calculoIMC(peso, altura);
+            calculoCreatina(peso, altura);
+        };
+
+        function calculoIMC(peso, altura) {
+            let imc = peso / (altura ^ 2);
+            let descricao = "";
+
+            if (imc < 18.5) {
+                descricao = "Abaixo do peso";
+            } else if (imc >= 18.5 && imc <= 24.9) {
+                descricao = "Peso normal";
+            } else if (imc >= 25 && imc <= 29.9) {
+                descricao = "Sobrepeso";
+            } else if (imc >= 30 && imc <= 34.9) {
+                descricao = "Obesidade Grau I";
+            } else if (imc >= 35 && imc <= 39.9) {
+                descricao = "Obesidade Grau II";
+            } else if (imc >= 40) {
+                descricao = "Obesidade Grau III";
+            }
+
+            document.getElementById("imc").innerText = `${imc.toFixed(2)} - ${descricao}`;
+        };
+
+        function calculoCreatina(peso, altura) {
+            let creatina = peso * 0.03;
+
+            document.getElementById("creatina").innerText = `${creatina} gramas`;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row m-3">
+            <div class="col-5">
+                <input type="number" class="form-control" name="nPeso" id="nPeso" placeholder="Peso">
+            </div>
+            <div class="col-5">
+                <input type="number" class="form-control" name="nAltura" id="nAltura" placeholder="Altura">
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-secondary" onclick="calculos(document.getElementById('nPeso').value, document.getElementById('nAltura').value)">Calcular</button>
+            </div>
+        </div>
+        <div class="row m-3">
+            <div class="col-12">
+                <table class="table table-bordered table-center">
+                    <tbody>
+                        <tr>
+                            <td>IMC</td>
+                            <td id="imc"></td>
+                        </tr>
+                        <tr>
+                            <td>Creatina</td>
+                            <td id="creatina"></td>
+                        </tr>
+                        <tr>
+                            <td>Proteína</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Água</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
