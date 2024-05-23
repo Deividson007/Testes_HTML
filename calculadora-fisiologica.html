@@ -13,9 +13,11 @@
         }
     </style>
     <script>
-        function calculos(peso, altura) {
+        function calculos(peso, altura, nivel) {
             calculoIMC(peso, altura);
             calculoCreatina(peso, altura);
+            calculoProteina(peso, nivel);
+            calculoAgua(peso, nivel);
         };
 
         function calculoIMC(peso, altura) {
@@ -44,20 +46,62 @@
 
             document.getElementById("creatina").innerText = `${creatina} gramas`;
         }
+
+        function calculoProteina(peso, nivel) {
+            let proteina;
+            switch(nivel) {
+                case "is":
+                    proteina = peso*0.8;
+                    break;
+                case "im":
+                    proteina = peso*1.2;
+                    break;
+                case "ia":
+                    proteina = peso*1.8;
+                    break;
+                case "cm":
+                    proteina = peso*2;
+                    break;
+            };
+            document.getElementById("proteina").innerText = `${proteina} gramas`;
+        }
+
+        function calculoAgua(peso, nivel) {
+            let agua;
+            if(nivel === "is" || nivel === "im") {
+                agua = peso*35;
+            }
+            if(nivel === "ia" || nivel === "cm") {
+                agua = peso*45;
+            }
+            document.getElementById("agua").innerText = `${agua} ml`;
+        }
     </script>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row m-3">
-            <div class="col-5">
+            <div class="col-2">
                 <input type="number" class="form-control" name="nPeso" id="nPeso" placeholder="Peso">
             </div>
-            <div class="col-5">
+            <div class="col-3">
                 <input type="number" class="form-control" name="nAltura" id="nAltura" placeholder="Altura">
             </div>
+            <div class="col-5">
+                <select id="ddlNivel" class="form-control">
+                    <option value="is">Indivíduos sedentários</option>
+                    <option value="im">Indivíduos moderadamente ativos</option>
+                    <option value="ia">Indivíduos muito ativos</option>
+                    <option value="cm">Objetivos de construção muscular</option>
+                </select>
+            </div>
             <div class="col-2">
-                <button type="button" class="btn btn-secondary" onclick="calculos(document.getElementById('nPeso').value, document.getElementById('nAltura').value)">Calcular</button>
+                <button type="button" class="btn btn-secondary" onclick="calculos(
+                    document.getElementById('nPeso').value, 
+                    document.getElementById('nAltura').value, 
+                    document.getElementById('ddlNivel').value)">Calcular
+                </button>
             </div>
         </div>
         <div class="row m-3">
@@ -74,11 +118,11 @@
                         </tr>
                         <tr>
                             <td>Proteína</td>
-                            <td></td>
+                            <td id="proteina"></td>
                         </tr>
                         <tr>
                             <td>Água</td>
-                            <td></td>
+                            <td id="agua"></td>
                         </tr>
                     </tbody>
                 </table>
