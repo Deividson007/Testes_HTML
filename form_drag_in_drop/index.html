@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Dinâmico Drag & Drop</title>
+    
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    <!-- jQuery UI -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js"></script>
+    
+    <!-- Form Builder -->
+     <script src="js/form-builder.min.js"></script>
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/formBuilder/3.8.2/form-builder.min.css">
+</head>
+<body>
+
+    <h2>Construa seu Formulário</h2>
+    <div id="fb-editor"></div>
+    
+
+    <script>
+        $(document).ready(function () {
+            var options = {
+                i18n: {
+                    locale: 'pt-BR',
+                    location: 'https://raw.githubusercontent.com/kevinchappell/formBuilder/master/src/lang/', // URL do repositório oficial
+                    override: {
+                        'pt-BR': {
+                            addOption: 'Adicionar Opção',
+                            allFieldsRemoved: 'Todos os campos foram removidos.',
+                            allowMultipleFiles: 'Permitir múltiplos arquivos',
+                            autocomplete: 'Autocompletar',
+                            button: 'Botão',
+                            checkboxGroup: 'Caixa de Seleção',
+                            clearAllMessage: 'Tem certeza de que deseja remover todos os campos?',
+                            close: 'Fechar',
+                            dateField: 'Campo de Data',
+                            description: 'Descrição',
+                            duplicate: 'Duplicar',
+                            edit: 'Editar',
+                            editXML: 'Editar XML',
+                            fieldNonEditable: 'Este campo não pode ser editado.',
+                            fieldRemoveWarning: 'Tem certeza de que deseja remover este campo?',
+                            fileUpload: 'Upload de Arquivo',
+                            label: 'Rótulo',
+                            paragraph: 'Parágrafo',
+                            placeholder: 'Texto de exemplo',
+                            radioGroup: 'Grupo de Botões de Rádio',
+                            required: 'Obrigatório',
+                            save: 'Salvar',
+                            selectOptions: 'Opções',
+                            text: 'Texto',
+                            textArea: 'Área de Texto'
+                        }
+                    }
+                }
+            };
+
+            $(document.getElementById('fb-editor')).formBuilder(options); // Inicializa o formBuilder
+            
+            
+        });
+    </script>
+
+</body>
+</html>
